@@ -4,15 +4,13 @@ from camera import *
 
 app = Flask(__name__)
 
-headings = ("Name", "Album", "Artist")
-df1 = music_rec()
-df1 = df1.head(15)
+headings = ("Name", "Artist", "Year")
+df = get_results(0)
 
 
 @app.route("/")
 def index():
-    print(df1.to_json(orient="records"))
-    return render_template("index.html", headings=headings, data=df1)
+    return render_template("index.html", headings=headings, data=df)
 
 
 def gen(camera):
@@ -31,7 +29,7 @@ def video_feed():
 
 @app.route("/t")
 def gen_table():
-    return df1.to_json(orient="records")
+    return df.to_json(orient="records")
 
 
 if __name__ == "__main__":
